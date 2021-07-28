@@ -109,7 +109,9 @@ void MainWindow::depthFirst()
 
 void MainWindow::random()
 {
-    this->navigate(pipeline[this->randInt(0,pipeline.length()-1)]);
+    int x = this->randInt(0,pipeline.length()-1);
+    this->navigate(pipeline[x]);
+    pipeline.removeAt(x);
     if (pipeline.count() <= 0)
     {
         this->disableDequeue();
