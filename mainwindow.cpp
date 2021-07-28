@@ -9,6 +9,8 @@ MainWindow::MainWindow()
     QNetworkProxyFactory::setUseSystemConfiguration(true);
 
     view = new QWebView(this);
+    this->settings = QWebSettings::globalSettings();
+    this->settings->setAttribute(QWebSettings::WebAttribute::JavascriptEnabled, false);
     view->load(QUrl("http://dr.dk"));
     connect(view, SIGNAL(loadFinished(bool)), SLOT(adjustLocation()));
     connect(view, SIGNAL(titleChanged(QString)), SLOT(adjustTitle()));

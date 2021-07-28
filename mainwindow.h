@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QtWidgets>
+#include <QWebSettings>
 
 class QWebView;
 QT_BEGIN_NAMESPACE
@@ -31,6 +32,7 @@ protected slots:
 
 private:
     QWebView *view;
+    QWebSettings *settings;
     QLineEdit *locationEdit;
     QQueue<QUrl> pipeline;
     QMenu *queueMenu;
