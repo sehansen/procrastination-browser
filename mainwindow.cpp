@@ -33,8 +33,10 @@ MainWindow::MainWindow()
     queueMenu = menuBar()->addMenu(tr("&Queue"));
     queueMenu->addAction("Navigate breadth first", this, SLOT(breadthFirst()));
     queueMenu->addAction("Navigate depth first", this, SLOT(depthFirst()));
+    queueMenu->addAction("Navigate randomly", this, SLOT(random()));
     queueMenu->actions().at(0)->setEnabled(false);
     queueMenu->actions().at(1)->setEnabled(false);
+    queueMenu->actions().at(2)->setEnabled(false);
 
     setCentralWidget(view);
     setUnifiedTitleAndToolBarOnMac(true);
@@ -97,3 +99,20 @@ void MainWindow::depthFirst()
         queueMenu->actions().at(1)->setEnabled(false);
     }
 }
+
+
+void MainWindow::random()
+{
+    view->load(pipeline[this->randInt(0,pipeline.length()-1)]);
+    if (pipeline.count() <= 0)
+    {
+        queueMenu->actions().at(0)->setEnabled(false);
+        queueMenu->actions().at(1)->setEnabled(false);
+    }
+}
+
+int MainWindow::randInt(int low, int high)
+{
+    return qrand() % ((high + 1) - low) + low;
+}
+

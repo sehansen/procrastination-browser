@@ -26,12 +26,14 @@ protected slots:
 
     void breadthFirst();
     void depthFirst();
+    void random();
 
 private:
     QWebView *view;
     QLineEdit *locationEdit;
     QQueue<QUrl> pipeline;
     QMenu *queueMenu;
+    int randInt(int low, int high);
 };
 
 #endif // MAINWINDOW_H
