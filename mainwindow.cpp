@@ -30,8 +30,9 @@ MainWindow::MainWindow()
     toolBar->addAction(view->pageAction(QWebPage::Stop));
     toolBar->addWidget(locationEdit);
 
-    QMenu *queueMenu = menuBar()->addMenu(tr("&Queue"));
+    queueMenu = menuBar()->addMenu(tr("&Queue"));
     queueMenu->addAction("Navigate breadth first", this, SLOT(breadthFirst()));
+    queueMenu->actions().at(0)->setEnabled(false);
 
     setCentralWidget(view);
     setUnifiedTitleAndToolBarOnMac(true);
@@ -68,6 +69,7 @@ void MainWindow::pageToQueue(QUrl target)
 {
     qDebug() << target.toString();
     pipeline.enqueue(target);
+    queueMenu->actions().at(0)->setEnabled(true);
     //takeAt()
     //dequeue()
 }
@@ -75,4 +77,8 @@ void MainWindow::pageToQueue(QUrl target)
 void MainWindow::breadthFirst()
 {
     view->load(pipeline.dequeue());
+    if (pipeline.count() <= 0)
+    {
+        queueMenu->actions().at(0)->setEnabled(false);
+    }
 }

@@ -30,6 +30,7 @@ private:
     QWebView *view;
     QLineEdit *locationEdit;
     QQueue<QUrl> pipeline;
+    QMenu *queueMenu;
 };
 
 #endif // MAINWINDOW_H
