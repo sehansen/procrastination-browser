@@ -32,7 +32,9 @@ MainWindow::MainWindow()
 
     queueMenu = menuBar()->addMenu(tr("&Queue"));
     queueMenu->addAction("Navigate breadth first", this, SLOT(breadthFirst()));
+    queueMenu->addAction("Navigate depth first", this, SLOT(depthFirst()));
     queueMenu->actions().at(0)->setEnabled(false);
+    queueMenu->actions().at(1)->setEnabled(false);
 
     setCentralWidget(view);
     setUnifiedTitleAndToolBarOnMac(true);
@@ -70,6 +72,7 @@ void MainWindow::pageToQueue(QUrl target)
     qDebug() << target.toString();
     pipeline.enqueue(target);
     queueMenu->actions().at(0)->setEnabled(true);
+    queueMenu->actions().at(1)->setEnabled(true);
     //takeAt()
     //dequeue()
 }
@@ -80,5 +83,17 @@ void MainWindow::breadthFirst()
     if (pipeline.count() <= 0)
     {
         queueMenu->actions().at(0)->setEnabled(false);
+        queueMenu->actions().at(1)->setEnabled(false);
+    }
+}
+
+
+void MainWindow::depthFirst()
+{
+    view->load(pipeline.takeLast());
+    if (pipeline.count() <= 0)
+    {
+        queueMenu->actions().at(0)->setEnabled(false);
+        queueMenu->actions().at(1)->setEnabled(false);
     }
 }

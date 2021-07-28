@@ -25,6 +25,7 @@ protected slots:
     void pageToQueue(QUrl target);
 
     void breadthFirst();
+    void depthFirst();
 
 private:
     QWebView *view;
