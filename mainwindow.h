@@ -1,22 +1,35 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QtWidgets>
 
-namespace Ui {
-class MainWindow;
-}
+class QWebView;
+QT_BEGIN_NAMESPACE
+class QLineEdit;
+QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    explicit MainWindow();
+
+protected slots:
+
+    void adjustLocation();
+    void changeLocation();
+    void adjustTitle();
+    void setProgress();
+    void finishLoading(bool);
+    void pageToQueue(QUrl target);
+
+    void breadthFirst();
 
 private:
-    Ui::MainWindow *ui;
+    QWebView *view;
+    QLineEdit *locationEdit;
+    QQueue<QUrl> pipeline;
 };
 
 #endif // MAINWINDOW_H
