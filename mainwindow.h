@@ -23,6 +23,7 @@ protected slots:
     void setProgress();
     void finishLoading(bool);
     void pageToQueue(QUrl target);
+    void disableDequeue();
 
     void breadthFirst();
     void depthFirst();
@@ -34,6 +35,7 @@ private:
     QQueue<QUrl> pipeline;
     QMenu *queueMenu;
     int randInt(int low, int high);
+    void navigate(QUrl url);
 };
 
 #endif // MAINWINDOW_H

@@ -75,39 +75,44 @@ void MainWindow::pageToQueue(QUrl target)
     pipeline.enqueue(target);
     queueMenu->actions().at(0)->setEnabled(true);
     queueMenu->actions().at(1)->setEnabled(true);
+    queueMenu->actions().at(2)->setEnabled(true);
     //takeAt()
     //dequeue()
 }
 
+void MainWindow::disableDequeue()
+{
+    queueMenu->actions().at(0)->setEnabled(false);
+    queueMenu->actions().at(1)->setEnabled(false);
+    queueMenu->actions().at(2)->setEnabled(false);
+}
+
 void MainWindow::breadthFirst()
 {
-    view->load(pipeline.dequeue());
+    this->navigate(pipeline.dequeue());
     if (pipeline.count() <= 0)
     {
-        queueMenu->actions().at(0)->setEnabled(false);
-        queueMenu->actions().at(1)->setEnabled(false);
+        this->disableDequeue();
     }
 }
 
 
 void MainWindow::depthFirst()
 {
-    view->load(pipeline.takeLast());
+    this->navigate(pipeline.takeLast());
     if (pipeline.count() <= 0)
     {
-        queueMenu->actions().at(0)->setEnabled(false);
-        queueMenu->actions().at(1)->setEnabled(false);
+        this->disableDequeue();
     }
 }
 
 
 void MainWindow::random()
 {
-    view->load(pipeline[this->randInt(0,pipeline.length()-1)]);
+    this->navigate(pipeline[this->randInt(0,pipeline.length()-1)]);
     if (pipeline.count() <= 0)
     {
-        queueMenu->actions().at(0)->setEnabled(false);
-        queueMenu->actions().at(1)->setEnabled(false);
+        this->disableDequeue();
     }
 }
 
@@ -116,3 +121,9 @@ int MainWindow::randInt(int low, int high)
     return qrand() % ((high + 1) - low) + low;
 }
 
+void MainWindow::navigate(QUrl url)
+{
+    locationEdit->selectAll();
+    locationEdit->insert(url.toString());
+    view->load(url);
+}
