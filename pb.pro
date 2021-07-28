@@ -18,3 +18,6 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h
 
 FORMS    +=
+
+DISTFILES += \
+    CMakeLists.txt
