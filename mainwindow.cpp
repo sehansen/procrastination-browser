@@ -25,7 +25,7 @@ MainWindow::MainWindow()
     locationEdit->setSizePolicy(QSizePolicy::Expanding, locationEdit->sizePolicy().verticalPolicy());
     connect(locationEdit, SIGNAL(returnPressed()), SLOT(changeLocation()));
 
-    QToolBar *toolBar = addToolBar(tr("Navigation"));
+    toolBar = addToolBar(tr("Navigation"));
     toolBar->addAction(view->pageAction(QWebPage::Back));
     toolBar->addAction(view->pageAction(QWebPage::Forward));
     toolBar->addAction(view->pageAction(QWebPage::Reload));

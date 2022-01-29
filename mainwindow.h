@@ -35,6 +35,7 @@ private:
     QWebSettings *settings;
     QLineEdit *locationEdit;
     QQueue<QUrl> pipeline;
+    QToolBar *toolBar;
     QMenu *queueMenu;
     int randInt(int low, int high);
     void navigate(QUrl url);
