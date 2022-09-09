@@ -25,6 +25,7 @@ protected slots:
     void finishLoading(bool);
     void pageToQueue(QUrl target);
     void disableDequeue();
+    void updateQueueStatus();
 
     void breadthFirst();
     void depthFirst();
@@ -34,6 +35,7 @@ private:
     QWebView *view;
     QWebSettings *settings;
     QLineEdit *locationEdit;
+    QLabel *queueStatus;
     QQueue<QUrl> pipeline;
     QToolBar *toolBar;
     QMenu *queueMenu;

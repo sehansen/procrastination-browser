@@ -25,12 +25,16 @@ MainWindow::MainWindow()
     locationEdit->setSizePolicy(QSizePolicy::Expanding, locationEdit->sizePolicy().verticalPolicy());
     connect(locationEdit, SIGNAL(returnPressed()), SLOT(changeLocation()));
 
+    queueStatus = new QLabel(this);
+    updateQueueStatus();
+
     toolBar = addToolBar(tr("Navigation"));
     toolBar->addAction(view->pageAction(QWebPage::Back));
     toolBar->addAction(view->pageAction(QWebPage::Forward));
     toolBar->addAction(view->pageAction(QWebPage::Reload));
     toolBar->addAction(view->pageAction(QWebPage::Stop));
     toolBar->addWidget(locationEdit);
+    toolBar->addWidget(queueStatus);
 
     queueMenu = menuBar()->addMenu(tr("&Queue"));
     queueMenu->addAction("Navigate breadth first", this, SLOT(breadthFirst()));
@@ -80,6 +84,7 @@ void MainWindow::pageToQueue(QUrl target)
     queueMenu->actions().at(2)->setEnabled(true);
     //takeAt()
     //dequeue()
+    updateQueueStatus();
 }
 
 void MainWindow::disableDequeue()
@@ -89,6 +94,13 @@ void MainWindow::disableDequeue()
     queueMenu->actions().at(2)->setEnabled(false);
 }
 
+void MainWindow::updateQueueStatus()
+{
+    QString tmptext;
+    tmptext = QString(" Queue count: %1").arg(pipeline.count());
+    queueStatus->setText(tmptext);
+}
+
 void MainWindow::breadthFirst()
 {
     this->navigate(pipeline.dequeue());
@@ -96,6 +108,7 @@ void MainWindow::breadthFirst()
     {
         this->disableDequeue();
     }
+    updateQueueStatus();
 }
 
 
@@ -106,6 +119,7 @@ void MainWindow::depthFirst()
     {
         this->disableDequeue();
     }
+    updateQueueStatus();
 }
 
 
@@ -118,6 +132,7 @@ void MainWindow::random()
     {
         this->disableDequeue();
     }
+    updateQueueStatus();
 }
 
 int MainWindow::randInt(int low, int high)
